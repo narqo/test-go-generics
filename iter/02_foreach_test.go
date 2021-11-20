@@ -7,7 +7,7 @@ import (
 	"github.com/narqo/test-go-generics/iter"
 )
 
-func ExampleForEach() {
+func ExampleIterator_forEach() {
 	a := &sliceIterator[int]{
 		[]int{1, 2, 3},
 	}
