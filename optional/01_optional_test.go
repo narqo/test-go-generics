@@ -8,14 +8,14 @@ import (
 )
 
 type testStruct struct {
-	IntVal    int                    `json:",omitempty"`
-	OptIntVal optional.Optional[int] `json:",omitempty"`
+	IntVal    int                  `json:",omitempty"`
+	OptIntVal *optional.Value[int] `json:",omitempty"`
 
-	BoolVal    bool                    `json:",omitempty"`
-	OptBoolVal optional.Optional[bool] `json:",omitempty"`
+	BoolVal    bool                  `json:",omitempty"`
+	OptBoolVal *optional.Value[bool] `json:",omitempty"`
 
-	StringVal    string                    `json:",omitempty"`
-	OptStringVal optional.Optional[string] `json:",omitempty"`
+	StringVal    string                  `json:",omitempty"`
+	OptStringVal *optional.Value[string] `json:",omitempty"`
 }
 
 func ExampleOptional() {
@@ -46,7 +46,7 @@ func ExampleOptional() {
 	fmt.Println(string(data))
 
 	// Output:
-	// {"OptIntVal":null,"OptBoolVal":null,"OptStringVal":null}
+	// {}
 	// {"OptIntVal":0,"OptBoolVal":false,"OptStringVal":""}
 	// {"IntVal":100,"OptIntVal":100,"BoolVal":true,"OptBoolVal":true,"StringVal":"abc","OptStringVal":"abc"}
 }

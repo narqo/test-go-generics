@@ -4,28 +4,26 @@ import (
 	"encoding/json"
 )
 
-type Optional[T any] struct {
+type Value[T any] struct {
 	Value T
-	Set   bool
 }
 
-func New[T any](val T) Optional[T] {
-	return Optional[T]{
+func New[T any](val T) *Value[T] {
+	return &Value[T]{
 		Value: val,
-		Set:   true,
 	}
 }
 
-func (o Optional[T]) MarshalJSON() ([]byte, error) {
-	if !o.Set {
+func (o *Value[T]) MarshalJSON() ([]byte, error) {
+	if o == nil {
 		return []byte("null"), nil
 	}
 	return json.Marshal(o.Value)
 }
 
-func (o *Optional[T]) UnmarshalJSON(data []byte) error {
+func (o *Value[T]) UnmarshalJSON(data []byte) error {
 	if data == nil {
-		*o = Optional[T]{}
+		*o = Value[T]{}
 		return nil
 	}
 
@@ -34,7 +32,9 @@ func (o *Optional[T]) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	*o = New(val)
+	*o = Value[T]{
+		Value: val,
+	}
 
 	return nil
 }
